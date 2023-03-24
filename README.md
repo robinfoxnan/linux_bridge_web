@@ -1,2 +1,18 @@
-# linux_bridge_web
-using vue web pages to implement btctl functions 
+# Linu_bridge_web
+使用VUE做的一个LINUX桥管理器，实现流量复制
+这个是前端部分
+
+## 1.安装
+```
+npm install
+```
+
+## 2.启动
+```
+npm run serve
+```
+
+## 3.访问
+```
+http://localhost:8090
+```
