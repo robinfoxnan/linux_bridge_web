@@ -13,6 +13,10 @@ npm run serve
 ```
 
 ## 3.访问
-```
+```4
 http://localhost:8090
 ```
+
+# 4. 截图
+
+![](doc/route_rules.png)
