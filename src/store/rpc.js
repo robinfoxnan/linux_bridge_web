@@ -128,6 +128,188 @@ class RPC {
   
     }
 
+    async getnslist(){
+      //创建一个配置
+      let options = {
+          method: 'GET',//post请求
+          headers: {
+          'Accept': 'application/json',
+          //'Content-Type': 'application/json'
+          },
+        }
+
+        let url = "/api/nslist"
+        return fetch(url, options)
+
+    }
+    async nsadd(name){
+      //创建一个配置
+      let options = {
+        method: 'GET',//post请求
+        headers: {
+        'Accept': 'application/json',
+        //'Content-Type': 'application/json'
+        },
+      }
+
+      let url = "/api/nsadd?name=" + name 
+      return fetch(url, options)
+    }
+
+    async nsdel(name){
+      //创建一个配置
+      let options = {
+        method: 'GET',//post请求
+        headers: {
+        'Accept': 'application/json',
+        //'Content-Type': 'application/json'
+        },
+      }
+
+      let url = "/api/nsdel?name=" + name 
+      return fetch(url, options)
+    }
+
+    async nsenter(name){
+      //创建一个配置
+      let options = {
+        method: 'GET',//post请求
+        headers: {
+        'Accept': 'application/json',
+        //'Content-Type': 'application/json'
+        },
+      }
+
+      let url = "/api/nsenter?name=" + name
+      return fetch(url, options)
+    }
+    ///////////////////////////////////////////////////
+
+    async brlist(){
+      //创建一个配置
+      let options = {
+        method: 'GET',//post请求
+        headers: {
+        'Accept': 'application/json',
+        //'Content-Type': 'application/json'
+        },
+      }
+
+      let url = "/api/brlist"
+      return fetch(url, options)
+    }
+
+    async bradd(name){
+      //创建一个配置
+      let options = {
+        method: 'GET',//post请求
+        headers: {
+        'Accept': 'application/json',
+        //'Content-Type': 'application/json'
+        },
+      }
+
+      let url = "/api/bradd?name=" + name
+      return fetch(url, options)
+    }
+
+    async brdel(name){
+      //创建一个配置
+      let options = {
+        method: 'GET',//post请求
+        headers: {
+        'Accept': 'application/json',
+        //'Content-Type': 'application/json'
+        },
+      }
+      console.log(name)
+      let url = "/api/brdel?name=" + name
+      return fetch(url, options)
+    }
+
+    async brportlist(br){
+      //创建一个配置
+      let options = {
+        method: 'GET',//post请求
+        headers: {
+        'Accept': 'application/json',
+        //'Content-Type': 'application/json'
+        },
+      }
+      console.log(br)
+      let url = "/api/brlistport?name=" + br
+      return fetch(url, options)
+    }
+
+    async brsetip(br, ip) {
+
+      let url = "/api/bredit" 
+      const response = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({
+          
+          name: br,
+          ipv4: ip,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      const data = await response.json();
+  
+      if (data.error) {
+        throw new Error(data.error.message);
+      }
+  
+      return data
+    }
+
+    async allportlist(){
+      //创建一个配置
+      let options = {
+        method: 'GET',//post请求
+        headers: {
+        'Accept': 'application/json',
+        //'Content-Type': 'application/json'
+        },
+      }
+
+      let url = "/api/portlist" 
+      return fetch(url, options)
+    }
+
+    async addport2br(br, port){
+      //创建一个配置
+      let options = {
+        method: 'GET',//post请求
+        headers: {
+        'Accept': 'application/json',
+        //'Content-Type': 'application/json'
+        },
+      }
+
+      let url = "/api/braddport?br=" + br + "&port=" + port 
+      return fetch(url, options)
+    }
+
+    async removeport(br, port){
+      //创建一个配置
+      let options = {
+        method: 'GET',//post请求
+        headers: {
+        'Accept': 'application/json',
+        //'Content-Type': 'application/json'
+        },
+      }
+
+      let url = "/api/brdelport?br=" + br + "&port=" + port 
+      return fetch(url, options)
+    }
+
+
+
+    //////////////////////////////////////////
     async call(method, params) {
       const response = await fetch(this.url, {
         method: 'POST',
@@ -165,6 +347,6 @@ class RPC {
     }
   }
   
-  const rpc = new RPC('http://example.com/rpc');
+  const rpc = new RPC('http://localhost:8888/api/v1/');
   export default rpc;
   

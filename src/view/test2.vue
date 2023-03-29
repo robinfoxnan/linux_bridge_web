@@ -5,9 +5,9 @@
     
     
     <div class="search_input_bar"> 
-    <el-input class="search_input" placeholder="请输入名字" v-model="input" maxlength="15" clearable></el-input>
+    <el-input class="search_input" placeholder="请输入名字" v-model="inputName" maxlength="15" clearable></el-input>
     <span>&nbsp;</span>
-    <el-button type="primary" plain>创建空间</el-button>
+    <el-button type="primary" @click="nsadd" plain>创建空间</el-button>
     </div>
    
      
@@ -26,8 +26,8 @@
 
       <el-table-column label="操作" width="200">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="danger" size="small">删除</el-button>
-          <el-button @click="handleClick(scope.row)" type="success" size="small">进入</el-button>
+          <el-button @click="nsdel(scope.row)" type="danger" size="small">删除</el-button>
+          <el-button @click="nsenter(scope.row)" type="success" size="small">进入</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -39,9 +39,74 @@ export default {
   //组件创建
   // created() {},
   // mounted() {},
+  mounted(){
+    this.$rpc.getnslist().then((res) => {
+                if (res.ok) {//如果取数据成功
+                    res.json().then((data) => {
+                        //转化为json数据进行处理
+                        console.log(data);
+                        if (data.state == 'ok') {
+                           this.currentNs = data.current
+                           this.tableData = []
+                           for(var i = 0; i < data.names.length; i++){
+                              console.log(data.names[i])
+                              
+                              this.tableData.push({name: data.names[i], index: i})
+                           }
+                          
+                        } else {
+                            this.$message("获取命名空间列表失败：" + data.des)
+                        }
+                    })
+                } else {
+                    console.log(res.status);
+                    this.$message("获取命名空间列表失败：" + data.des)
+
+                }
+            })
+            .catch(error => {
+                    console.error(error);
+                    this.$message("获取命名空间列表失败：" + data.des)
+           })
+          //this.$router.push("/home")
+  },
   methods: {
-    handleClick(row) {
+    setData(res){
+      if (res.ok) {//如果取数据成功
+                    res.json().then((data) => {
+                        //转化为json数据进行处理
+                        console.log(data);
+                        if (data.state == 'ok') {
+                           this.currentNs = data.current
+                           this.tableData = []
+                           for(var i = 0; i < data.names.length; i++){
+                              console.log(data.names[i])
+                              
+                              this.tableData.push({name: data.names[i], index: i})
+                           }
+                          
+                        } else {
+                            this.$message("获取命名空间列表失败：" + data.des)
+                        }
+                    })
+                } else {
+                    console.log(res.status);
+                    this.$message("获取命名空间列表失败：" + data.des)
+
+                }
+
+    },
+    nsdel(row) {
       console.log(row);
+      this.$rpc.nsdel(row.name).then((res) => {this.setData(res); })
+    },
+    nsadd(row) {
+      console.log(row);
+      this.$rpc.nsadd(this.inputName).then((res) => {this.setData(res); })
+    },
+    nsenter(row) {
+      console.log(row);
+      this.$rpc.nsenter(row.name).then((res) => {this.setData(res); })
     },
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 === 0) {
@@ -53,7 +118,7 @@ export default {
   },
   data() {
     return {
-      input: "",
+      inputName: "",
       tableData: [
         {
           index: "1",

@@ -300,7 +300,7 @@ export default {
                 id: 'number-03', 
                 class: 'fa el-icon-document', 
                 path: '/test3', 
-                label: '网桥管理', 
+                label: '复制组管理', 
                 name: 'test3'
             },
             {
@@ -314,14 +314,14 @@ export default {
                 id: 'number-05', 
                 class: 'fa el-icon-document', 
                 path: '/test5', 
-                label: '桥模式规则', 
+                label: '复制组过滤规则', 
                 name: 'test5'
             },
             {
                 id: 'number-06', 
                 class: 'fa el-icon-document', 
                 path: '/test6', 
-                label: '路由模式规则', 
+                label: '应用映射模式规则', 
                 name: 'test6'
             },
             {
