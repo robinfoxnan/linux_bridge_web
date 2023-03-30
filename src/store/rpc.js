@@ -47,6 +47,34 @@ class RPC {
         return this.url;
     }
 
+    checkIp(ip){
+      var index = ip.lastIndexOf('/')
+      var msg = ""
+      if (index < 0){
+        msg = "格式错误，未设置掩码，请填写复制组的IP地址，格式为：192.168.5.1/24";
+        return {ok: false, info: msg}
+      }
+      
+      var ip_ = ip.substring(0, index)
+      var mask = ip.substring(index +1, ip.length)
+      //console.log(ip_)
+      //console.log(mask)
+      var maskInt = parseInt(mask)
+      if (maskInt < 8 || maskInt > 30){
+        msg = "掩码长应在8-30位，请填写复制组的IP地址，格式为：192.168.5.1/24" ;
+        return {ok: false, info: msg}
+      }
+
+
+      var re =/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
+      var bl = re.test(ip_);
+      if (!bl) {
+        msg = "格式错误，请填写复制组的IP地址，格式为：192.168.5.1/24";
+        return {ok: false, info: msg}
+      }
+      return {ok: true, info: msg}
+  }
+
     async login(name, pwd){
       //创建一个配置
       let options = {
@@ -305,6 +333,26 @@ class RPC {
 
       let url = "/api/brdelport?br=" + br + "&port=" + port 
       return fetch(url, options)
+    }
+
+    async setportIp(port, ip, gw){
+
+      let url = "/api/portip" 
+      let options = {
+        method: 'POST',
+        body: JSON.stringify({
+          
+          name: port,
+          ipv4: ip,
+          gw: gw
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+
+      return  fetch(url, options);
+
     }
 
 

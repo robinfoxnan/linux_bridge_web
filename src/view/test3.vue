@@ -21,7 +21,9 @@
       <el-table-column prop="ipv4" label="ipv4地址"> </el-table-column>
       <el-table-column prop="ipv6" label="ipv6地址"> </el-table-column>
       <el-table-column prop="mac" label="mac地址"> </el-table-column>
+      <!--
       <el-table-column prop="vlan" label="vlan"> </el-table-column>
+      -->
 
       <el-table-column label="操作" width="200">
         <template slot-scope="scope">
@@ -72,8 +74,9 @@
       <el-table-column prop="ipv4" label="ipv4地址"> </el-table-column>
       <el-table-column prop="ipv6" label="ipv6地址"> </el-table-column>
       <el-table-column prop="mac" label="mac地址"> </el-table-column>
+      <!-- 
       <el-table-column prop="vlan" label="vlan"> </el-table-column>
-
+        -->
       <el-table-column label="操作" width="200">
         <template slot-scope="scope">
           <el-button @click="removePort(scope.row)" type="danger" size="mini">从组内移除</el-button>
@@ -190,6 +193,9 @@ export default {
                         if (data.state == 'ok') {
                           
                            this.tableDataBr = data.ports
+                           this.tableDataPort = []
+                           this.currentBr = "[无]"
+                           this.ipv4 = ""
                           
                         } else {
                             this.$message("获取组列表失败：" + data.des)
@@ -268,32 +274,7 @@ export default {
 
         },
         // 为桥设置IP
-        checkIp(ip){
-            var index = ip.lastIndexOf('/')
-            if (index < 0){
-              this.$message("格式错误，未设置掩码，请填写复制组的IP地址，格式为：192.168.5.1/24" )
-              return false
-            }
-            
-            var ip_ = ip.substring(0, index)
-            var mask = ip.substring(index +1, ip.length)
-            //console.log(ip_)
-            //console.log(mask)
-            var maskInt = parseInt(mask)
-            if (maskInt < 8 || maskInt > 30){
-              this.$message("掩码长应在8-30位，请填写复制组的IP地址，格式为：192.168.5.1/24" )
-              return false
-            }
-
-
-            var re =/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
-            var bl = re.test(ip_);
-            if (!bl) {
-              this.$message("格式错误，请填写复制组的IP地址，格式为：192.168.5.1/24" )
-              return false
-            }
-            return true
-        },
+       
         setBrIp(){
 
           if (this.currentBr == "[无]"){
@@ -304,12 +285,12 @@ export default {
             this.$message("请填写复制组的IP地址，格式为：192.168.5.1/24" )
           }
           // 验证IP是否合法
-          var ok  = this.checkIp(this.ipv4)
-          console.log(ok)
-          if (false == ok){
+          var ret  = this.$rpc.checkIp(this.ipv4)
+          console.log(ret)
+          if (false == ret.ok){
+            this.$message(ret.info)
             return 
           }
-
 
           this.$rpc.brsetip(this.currentBr, this.ipv4).
   
