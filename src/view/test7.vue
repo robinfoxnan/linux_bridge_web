@@ -1,7 +1,7 @@
 <template>
     <div id="test7">
         <el-card>
-            授权信息:
+            授权信息
         </el-card>
 
         <el-card>
@@ -30,6 +30,7 @@ export default {
     created() {
     },
     mounted(){
+        this.getLisenceData();
     },
     data() {
         return{
@@ -40,8 +41,63 @@ export default {
     },
     methods:{
         handleUpdate(){
-            
-        }
+            this.$rpc.updateLisence(this.lisence).then((res) => {
+                if (res.ok) {//如果取数据成功
+                    res.json().then((data) => {
+                        //转化为json数据进行处理
+                        console.log(data);
+                        if (data.state == 'ok') {
+                            this.$message("更新授权信息成功：" + data.des)
+                           this.reqdata = data.req;
+                           this.expiredate = data.date2;
+
+                        } else {
+                            this.$message("遇到错误：" + data.des);
+                            this.reqdata = data.req;
+                           this.expiredate = data.date2;
+
+                           console.log(data.rules)
+                     
+                        }
+                    })
+                } else {
+                    console.log(res.status);
+                    this.$message("遇到错误：" + data.des)
+
+                }
+            }).catch(error => {
+                    console.error(error);
+                    this.$message("遇到失败：" + data.des)
+           })
+        },
+        getLisenceData(){
+            this.$rpc.getLisence().then((res) => {
+                if (res.ok) {//如果取数据成功
+                    res.json().then((data) => {
+                        //转化为json数据进行处理
+                        console.log(data);
+                        if (data.state == 'ok') {
+                            
+                           this.reqdata = data.req;
+                           this.expiredate = data.date2;
+
+                        } else {
+                            this.$message("遇到错误：" + data.des)
+
+                           console.log(data.rules)
+                     
+                        }
+                    })
+                } else {
+                    console.log(res.status);
+                    this.$message("遇到错误：" + data.des)
+
+                }
+            }).catch(error => {
+                    console.error(error);
+                    this.$message("遇到失败：" + data.des)
+           })
+        },
     }
 }
 </script>

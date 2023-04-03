@@ -141,20 +141,35 @@ class RPC {
     async updateLisence(codeParam){
        //创建一个配置
        let options = {
-        method: 'GET',//post请求
-        headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({//post请求参数
-        code: codeParam,
-        })
+          method: 'POST',//post请求
+          headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({//post请求参数
+          code: codeParam,
+          })
         }
 
         //新建一个fetch请求
         return fetch('/api/lisenceupdate', options)
   
     }
+
+    async getLisence(){
+      //创建一个配置
+      //创建一个配置
+      let options = {
+        method: 'GET',//post请求
+        headers: {
+        'Accept': 'application/json',
+        //'Content-Type': 'application/json'
+        },
+      }
+
+       return fetch('/api/lisence', options)
+ 
+   }
 
     async getnslist(){
       //创建一个配置
