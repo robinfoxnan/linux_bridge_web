@@ -1,0 +1,32 @@
+什么是pm2？ 如官网介绍的，pm2是nodejs下先进的，生产进程管理器。如性能监控，自动重启、负载均衡等等。
+
+关于pm2的更多教程，请移步pm2官方文档
+
+1.请确保安装了node
+
+2.安装pm2
+
+npm install pm2 -g
+
+ln -s /usr/local/nodebox/nodejs/lib/node_modules/pm2/bin/pm2 /usr/local/bin
+3.使用pm2启动server文件
+
+*请注意将start后边的地址改为自己的文件地址
+
+pm2 start /api/server.js --name="nodeServer"
+4.将pm2设置为开机启动
+
+pm2 startup
+5.接下来可以试验一下，重启系统
+
+shutdown -r now
+
+go_app.service
+[Unit]
+Description=golang web application
+After=syslog.target network.target[Service]
+Type=simple
+WorkingDirectory=/home/centos/go_pro/
+ExecStart=/home/centos/go_pro/web_service_amd64
+Restart=on-failure[Install]
+WantedBy=multi-user.target
