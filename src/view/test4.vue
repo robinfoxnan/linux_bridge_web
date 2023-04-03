@@ -8,20 +8,28 @@
             <el-table-column fixed prop="index" label="ID号">
             </el-table-column>
             <el-table-column prop="alias" label="名字"> </el-table-column>
+             <!--
             <el-table-column prop="ipv4" label="ipv4地址"> </el-table-column>
             <el-table-column prop="ipv6" label="ipv6地址"> </el-table-column>
+            -->
             <el-table-column prop="mac" label="mac地址"> </el-table-column>
             <el-table-column prop="br" label="所属组"> </el-table-column>
+              <!--
             <el-table-column prop="gw" label="网关"> </el-table-column>
-
+            -->
+            <!--
             <el-table-column  label="操作" width="200">
                 <template v-if="scope.row.show"  slot-scope="scope">
+                    
                     <el-button  @click="handleChangeIp(scope.row)" type="text" size="small">更改地址</el-button>
-                    <!-- 
+                     
                     <el-button @click="handleClick(scope.row)" type="text" size="small">移动到命名空间</el-button>
-                    -->
+                    
+                    <el-button @click="handleDelIp(scope.row)" type="text" size="small">清除地址</el-button>
+                   
                 </template>
             </el-table-column>
+             -->
         </el-table>
 
 
@@ -105,6 +113,9 @@ export default {
             } else if (rowIndex % 2 === 1) {
                 return "success-row";
             }
+        },
+        handleDelIp(row){
+
         },
         // 设置IP
         handleChangeIp(row) {

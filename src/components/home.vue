@@ -289,13 +289,13 @@ export default {
                 label: '主页', 
                 name: 'home'
             },
-            {
-                id: 'number-02', 
-                class: 'fa el-icon-document', 
-                path: '/test2', 
-                label: '命名空间', 
-                name: 'test2'
-            },
+            // {
+            //     id: 'number-02', 
+            //     class: 'fa el-icon-document', 
+            //     path: '/test2', 
+            //     label: '命名空间', 
+            //     name: 'test2'
+            // },
             {
                 id: 'number-03', 
                 class: 'fa el-icon-document', 
@@ -317,13 +317,13 @@ export default {
                 label: '复制组过滤规则', 
                 name: 'test5'
             },
-            {
-                id: 'number-06', 
-                class: 'fa el-icon-document', 
-                path: '/test6', 
-                label: '应用映射模式规则', 
-                name: 'test6'
-            },
+            // {
+            //     id: 'number-06', 
+            //     class: 'fa el-icon-document', 
+            //     path: '/test6', 
+            //     label: '应用映射模式规则', 
+            //     name: 'test6'
+            // },
             {
                 id: 'number-07', 
                 class: 'fa el-icon-document', 

@@ -1,27 +1,59 @@
 <template>
     <div id="wellcome">
-        欢迎使用朔雪流量镜像设备。<br/>
-        设备支持桥模式以及路由模式实现端口流量镜像。<br/><br/>
+        欢迎使用本流量镜像设备。<br/>
+        <br/>
+        下面简要介绍几种典型应用模式
+        <br/>
+        <!--
+        <img width="400px" height="400px" src="../assets/page1.png" style="border-radius: 5px">
+        -->
+        <el-carousel trigger="click" :interval="60000" height="250px" arrow="always">
 
-        <span class="descript"> 桥接模式：默认桥上所有口能直接共享流量；可以在桥本身过滤掉某些流量，或者在网口上过滤掉某些流量。</span><br/><br/>
+            <el-carousel-item v-for="item in carouselList" :key="item">
+                
+                <el-image         
+                :src="item" 
+                style="position:absolute;top:0;bottom:0;left:0;right:0;width:100%;margin:auto;" 
+                fit="contain"></el-image>
+ 
+            </el-carousel-item>
 
-        <span class="descript"> 路由模式：从指定的A口按某些规则复制流量到B口，按照规则复制。该模式相对复杂，
-            原因在于每个网口都需要设置地址以及网关（互联的设备地址）。类似路由器的端口的配置方式，可以使用30位掩码。
-            规则为复制规则。
+        </el-carousel>
+        
+        <br/><br/>
+        设置步骤<br/><br/>
+       1. 新建复制组，将多个端口添加到同一个复制组；<br/>
+       （复制组内各个端口共享流量，即无需设置输入输出即可实现流量的复制输出与流量汇聚。）<br/><br/>
+       2. 如果需要过滤掉多余的数据，可以在规则页面，针对单个端口设置流入与流出规则。
+       
+
+
+        <span class="descript"> </span><br/><br/>
+
+        <span class="descript"> 
         </span>
     </div>
 </template>
 <script>
 export default {
-    name: 'wellcome',
+    //name :"欢迎",
+    
+    data() {
+        return {
+            carouselList:[
+                require("../assets/page1.png"),
+                require("../assets/page2.png"),
+                require("../assets/page3.png"),
+                ] ,
+        };
+    },
+    
+   
+
     //组件创建
     created() {
     },
     mounted(){
-    },
-    data() {
-        return{
-        }
     },
     methods:{
     }
@@ -33,4 +65,16 @@ export default {
     font-size: 15px;
     color: #242323;
   }
+
+  /deep/.el-carousel__item img{
+     height: 250px;
+	 max-width: 700px;
+  }
+  /deep/.el-carousel__item{
+	  text-align: center;
+  }
+  /deep/.el-carousel__container {
+      height: 250px;
+  }
+
 </style>

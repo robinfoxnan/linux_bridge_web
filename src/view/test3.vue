@@ -98,10 +98,10 @@ export default {
           newBrName: "",
           currentBr: "[无]",
             tableDataBr: [
-                {
-                index: "-1",
-                name: "br0-sample",
-                },
+                // {
+                // index: "-1",
+                // name: "br0-sample",
+                // },
         
             ],
 

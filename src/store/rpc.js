@@ -355,6 +355,59 @@ class RPC {
 
     }
 
+    async listBrRules(){
+      //创建一个配置
+      let options = {
+        method: 'GET',//post请求
+        headers: {
+        'Accept': 'application/json',
+        //'Content-Type': 'application/json'
+        },
+      }
+
+      let url = "/api/brruleslist" 
+      return fetch(url, options)
+
+    }
+
+    async addBrRule(rule){
+      let url = "/api/brrulesadd" 
+      let options = {
+        method: 'POST',
+        body: JSON.stringify(rule),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+
+      return  fetch(url, options);
+    }
+
+    async delBrRule(rule){
+      let url = "/api/brrulesdel" 
+      let options = {
+        method: 'POST',
+        body: JSON.stringify(rule),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+
+      return  fetch(url, options);
+    }
+
+    async editBrRule(rule){
+      let url = "/api/brrulesedit" 
+      let options = {
+        method: 'POST',
+        body: JSON.stringify(rule),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+
+      return  fetch(url, options);
+    }
 
 
     //////////////////////////////////////////

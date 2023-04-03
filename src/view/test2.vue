@@ -120,14 +120,14 @@ export default {
     return {
       inputName: "",
       tableData: [
-        {
-          index: "1",
-          name: "默认",
-        },
-        {
-          index: "3",
-          name: "testNs1",
-        },
+        // {
+        //   index: "1",
+        //   name: "默认",
+        // },
+        // {
+        //   index: "3",
+        //   name: "testNs1",
+        // },
       ],
       currentNs: "默认",
     };
