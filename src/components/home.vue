@@ -128,7 +128,7 @@
                 </el-form>
                 <div slot="footer" class="dialog-footer">
                     <el-button @click="dialogFormVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+                    <el-button type="primary" @click="handleChangeUserPwd">确 定</el-button>
                 </div>
             </el-dialog>
         </div> <!-- 对话框Form -->
@@ -185,7 +185,7 @@ export default {
         // 退出
         case 'logout':    
             //重置vuex中的数据
-            this.$store.commit('clearVUEX')
+            this.$store.commit('clearVUEX');
             //跳转到首页
             this.$rpc.setLogout()
             this.$router.push("/login");
@@ -196,10 +196,43 @@ export default {
         case 'update-password':
           //消息提示
           this.dialogFormVisible = true
-          //this.$message('修改密码');
           break
       }
     },
+    // 
+    handleChangeUserPwd(){
+      
+      
+      this.$rpc.useredit(this.userName, this.form.pwd).then((res) => {
+                if (res.ok) {//如果取数据成功
+                 
+                    res.json().then((data) => {
+                        //转化为json数据进行处理
+                        console.log(data);
+                        if (data.state == 'ok') {                     
+                           this.$message("口令已经更改完成。") ;
+                           this.dialogFormVisible  = false;  
+                          
+                        } else {
+                            this.$message("口令已经更改遇到错误：" + data.des)
+                            this.dialogFormVisible  = false;
+                  
+                        }
+                    })
+                } else {
+                    console.log(res.status);
+                    this.$message("口令已经更改遇到错误：" + data.des)
+                    this.dialogFormVisible  = false;
+
+                }
+            }).catch(error => {
+                    console.error(error);
+                    this.$message("遇到失败：" + data.des)
+                    this.dialogFormVisible  = false;
+           })
+      
+    },
+
     // 点击折叠 展开菜单
     toggleCollapse(){
         this.isCollapse = !this.isCollapse;

@@ -61,6 +61,23 @@ const router = new VueRouter({
   routes
 })
 
+function isEmpty(obj) {
+    if (typeof obj === 'undefined' || obj == null || obj === '') {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+function checkLogin(){
+    var name = localStorage.getItem('username');
+    console.log(name)
+    if (isEmpty(name)) {
+      return false
+    }
+      return true
+  };
+
 /**
  * 挂载路由守卫
  * to 代表将要访问的路径
@@ -70,9 +87,21 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     // 加载条
     NProgress.start()
+    console.log(to)
+    if (to.path == "/login"){
+        //放行
+        next() 
 
-    //放行
-    next() 
+    }else if (checkLogin()){
+        //放行
+        console.log("已经登录")
+        next()     
+
+    }else{
+        console.log("未登录")
+        next({path:'/login'})
+    }
+
 })
 
 
