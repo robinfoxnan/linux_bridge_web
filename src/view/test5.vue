@@ -20,6 +20,7 @@
       
       <el-table-column prop="alias" label="端口名"> </el-table-column>
       <el-table-column prop="direction" label="方向"> </el-table-column>
+      <el-table-column prop="pkts" label="匹配次数"> </el-table-column>
       <el-table-column prop="source" label="源地址"> </el-table-column>
       <el-table-column prop="dest" label="目的地址"> </el-table-column>
       <el-table-column prop="physsport" label="源端口"> </el-table-column>

@@ -9,7 +9,7 @@ module.exports = {
         // api 转发
         proxy: {
             '/api': {
-              target: 'http://192.168.1.96:8888',
+              target: 'http://localhost:8888',
               changeOrigin: true,
               pathRewrite: {
                 '^/api': '/api/v1'
